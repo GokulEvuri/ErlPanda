@@ -25,7 +25,7 @@ loop()->
     receive 
 	stop->
 	    release(?Pin),
-	    ok;
+	    ok
     after 40 ->
 	    State = read_state(?Pin),
 	    blink(State),
@@ -50,7 +50,7 @@ release(Pin) ->
 export(Pin)->
     {ok, IODevice} = file:open("/sys/class/gpio/export", [write]),
     file:write(IODevice, integer_to_list(Pin)),
-    file:close(IODevice),
+    file:close(IODevice).
 
 %% Make sure that you exported the pin
 set_direction(Pin,Direction)->   
