@@ -7,7 +7,7 @@
 
 -compile(export_all).
 
--define(Pin,121).
+-define(Pin,113).
 
 
 start()->
@@ -18,7 +18,7 @@ start()->
 init()->
     release(?Pin),
     export(?Pin),
-    set_direction(?Pin,in),
+    set_direction(?Pin,out),
     ok
     .
 
