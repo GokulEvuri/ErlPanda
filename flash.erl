@@ -7,7 +7,7 @@
 
 -compile(export_all).
 
--define(Pin,132).
+-define(Pin,121).
 
 
 start()->
@@ -36,9 +36,9 @@ loop()->
 %internal Functions
 blink(State)->
     case State of
-	1->
+	"1\n"->
 	    io:format("Click");
-	0->
+	"0\n"->
 	    io:format("released")
     end.
 
