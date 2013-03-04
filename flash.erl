@@ -19,7 +19,7 @@ init()->
     release(?Pin),
     export(?Pin),
     set_direction(?Pin,in),
-    IODevice = file:open("")
+    ok
     .
 
 loop()->
