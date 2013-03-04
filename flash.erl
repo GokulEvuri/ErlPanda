@@ -5,14 +5,21 @@
 %% Developer Notes: FO(Ex(P)) -> CL(F) -> O(PND) -> xfxf
 -module(flash).
 
--compile(export_all).
 
--define(Pin,113).
 
+-ifdef(Orginal).
+-define(Pin, 121).
+-else.
+-define(Pin, 113).
+-endif.
+
+%-compile(export_all).
+
+-export([start/0,loop/1]).
 
 start()->
     init(),
-    IODevice = file:open("/sys/class/gpio/gpio"++integer_to_list(Pin)++"/value",[read]),
+    IODevice = file:open("/sys/class/gpio/gpio"++integer_to_list(?Pin)++"/value",[read]),
     register(gpio,spawn(?MODULE,loop,[IODevice])),
     io:format("if you want to stop this madness send an atom 'stop' to this gpio, gpio!\"stop\""),
     ok.
@@ -30,16 +37,17 @@ loop(IODevice)->
 	    release(?Pin),
 	    ok
     after 40 ->
-	    State = read_state(?Pin,IODevice),
+	    State = read_state(IODevice),
 	    blink(State),
-	    loop()
+	    loop(IODevice)
     end.
 
 %internal Functions
-read_state(Pin,IODevice)->
+read_state(IODevice)->
     file:position(IODevice,0),
     {ok,State} = file:read(IODevice,1),
     State.
+
 
 blink(State)->
     case State of
