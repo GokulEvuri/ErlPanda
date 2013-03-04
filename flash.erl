@@ -19,7 +19,8 @@ init()->
     release(?Pin),
     export(?Pin),
     set_direction(?Pin,in),
-    ok.
+    IODevice = file:open("")
+    .
 
 loop()->
     receive 
@@ -63,4 +64,4 @@ set_direction(Pin,Direction)->
     file:close(IODevice).
 
 read_state(Pin)->
-    os:cmd("cat sys/class/gpio/gpio"++integer_to_list(Pin)++"/value").
+    os:cmd("cat /sys/class/gpio/gpio"++integer_to_list(Pin)++"/value").    
